@@ -1,9 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using UrlShortener.Entities;
-using UrlShortener.Services;
-
-
-namespace UrlShortener
+﻿namespace UrlShortener
 {
     public class ApplicationDbContext : DbContext
     {
@@ -17,8 +12,10 @@ namespace UrlShortener
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            UrlShorteningRepo len = new UrlShorteningRepo();
             modelBuilder.Entity<ShortenedUrl>(builder =>
             {
+                builder.Property(l => l.Code).HasMaxLength(8);//8
                 builder.HasIndex(s => s.Code).IsUnique();
             });
             //pass a delegate to configure the entity

@@ -1,23 +1,28 @@
-﻿namespace UrlShortener.Repositories
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Configuration;
+
+namespace UrlShortener.Repositories
 {
     public class UrlShorteningRepo
     {
-        private readonly IConfiguration _configuration;
+        private IConfiguration _configuration;
 
-        public UrlShorteningRepo(IConfiguration configuration)
+        public UrlShorteningRepo(IConfiguration configuration) 
         {
             _configuration = configuration;
         }
-       
+        public UrlShorteningRepo()
+        {
+
+        }
 
         public int GetUrlLen()
         {
-            var UrlLength = _configuration.GetValue<string>("UrlOptions:UrlLength");
-            if (UrlLength == null)
-            {
-                return 8;
-            }
-            return int.Parse(UrlLength);
+            var dbConn = _configuration.GetSection("appsettings.json").GetSection("UrlOptions:UrlLength").Value;
+
+            //var x = _configuration.GetSection("appsettings")["UrlOptions:UrlLength"];
+            return int.Parse(dbConn);
+
         }
     }
 }

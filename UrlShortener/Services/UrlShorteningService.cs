@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Connections;
-using Microsoft.IdentityModel.Tokens;
-using System.Runtime.CompilerServices;
-using UrlShortener.Entities;
-
-namespace UrlShortener.Services
+﻿namespace UrlShortener.Services
 {
     public class UrlShorteningService
     {

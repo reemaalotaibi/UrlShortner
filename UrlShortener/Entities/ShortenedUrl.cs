@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace UrlShortener.Entities
+﻿namespace UrlShortener.Entities
 {
     public class ShortenedUrl
     {
@@ -9,7 +7,6 @@ namespace UrlShortener.Entities
 
         public string ShortUrl { get; set; } = string.Empty;
 
-        [MaxLength(8)]
         public string Code { get; set; } = string.Empty;
 
         public DateTime CreatedOnUtc { get; set; }
