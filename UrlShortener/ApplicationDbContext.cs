@@ -15,7 +15,7 @@
             UrlShorteningRepo len = new UrlShorteningRepo();
             modelBuilder.Entity<ShortenedUrl>(builder =>
             {
-                builder.Property(l => l.Code).HasMaxLength(8);//8
+                builder.Property(l => l.Code).HasMaxLength(8);
                 builder.HasIndex(s => s.Code).IsUnique();
             });
             //pass a delegate to configure the entity

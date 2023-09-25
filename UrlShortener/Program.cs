@@ -12,8 +12,8 @@ builder.Services.AddSwaggerGen();
 var connectionString = builder.Configuration.GetConnectionString("Default") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
-//builder.Configuration.AddJsonFile("appsettings");
-//var x = builder.Configuration.GetSection("UrlOptions:UrlLength").Value;
+
+
 builder.Services.AddScoped<UrlShorteningService>();
 
 // Add services to the container.

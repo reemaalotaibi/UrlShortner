@@ -16,13 +16,6 @@ namespace UrlShortener.Repositories
 
         }
 
-        public int GetUrlLen()
-        {
-            var dbConn = _configuration.GetSection("appsettings.json").GetSection("UrlOptions:UrlLength").Value;
-
-            //var x = _configuration.GetSection("appsettings")["UrlOptions:UrlLength"];
-            return int.Parse(dbConn);
-
-        }
+       
     }
 }
