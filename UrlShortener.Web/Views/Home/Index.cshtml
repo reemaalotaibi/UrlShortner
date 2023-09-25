@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Short Url Generator";
+}
+
+<div class="text-center">
+    <label for="basic-url">Generate Short URL</label>
+    <br/>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon3">Long URL </span>
+        </div>
+        <input type="text" class="form-control" id="longURL" aria-describedby="basic-addon3">
+    </div>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon3">New Code</span>
+        </div>
+        <input type="text" class="form-control" placeholder="code" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" id="generate">Generate</button>
+        </div>
+</div>
