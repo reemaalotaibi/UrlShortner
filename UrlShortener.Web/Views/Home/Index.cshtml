@@ -1,23 +1,33 @@
-﻿@{
+﻿@model InputUrl
+@{
     ViewData["Title"] = "Short Url Generator";
 }
 
 <div class="text-center">
     <label for="basic-url">Generate Short URL</label>
     <br/>
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon3">Long URL </span>
+    @using (Html.BeginForm("GetShortUrl", "Home"))
+    {
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon3">Long URL </span>
+            </div>
+            <input type="text" class="form-control" asp-for="Url" id="longURL" placeholder="Put the link you want to shorten here" aria-describedby="basic-addon3">
         </div>
-        <input type="text" class="form-control" id="longURL" aria-describedby="basic-addon3">
-    </div>
 
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon3">New Code</span>
-        </div>
-        <input type="text" class="form-control" placeholder="code" aria-describedby="basic-addon2">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon3">New Code</span>
+            </div>
+            <input type="text" class="form-control" asp-for="Code" id="code" placeholder="Type in a new parameter" aria-describedby="basic-addon2">
+        
         <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" id="generate">Generate</button>
+            <button class="btn btn-outline-secondary" type="submit" id="generate"
+                onclick="">
+                Generate
+            </button>
         </div>
+        </div>
+    }
+    
 </div>

@@ -11,7 +11,7 @@ namespace UrlShortener
         public static void CreateEndPoints(this IEndpointRouteBuilder app)
         {
             #region MapPost
-            app.MapPost("api/shorten", (ShortUrlRequest request, UrlShorteningService urlShorteningService,
+            app.MapPost("api/URlshortener", (ShortUrlRequest request, UrlShorteningService urlShorteningService,
                     ApplicationDbContext context, HttpContext httpContext) =>
             {
                 if (!Uri.TryCreate(request.URL, UriKind.Absolute, out _))
