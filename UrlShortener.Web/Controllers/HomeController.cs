@@ -23,7 +23,7 @@ namespace UrlShortener.Web.Controllers
             return View();
         }
         [HttpPost]
-        public async Task GetShortUrl(InputUrl inputUrl)
+        public IActionResult GetShortUrl(InputUrl inputUrl)
         {
             var apiBaseUrl = _configuration.GetSection("BaseUrl").Value + "api/URlshortener";
 
@@ -40,15 +40,21 @@ namespace UrlShortener.Web.Controllers
                     try
                     {
                         res.Result.EnsureSuccessStatusCode();
+                        return View(res.Result);
+                        
                     }
                     catch
                     {
                         res.Result.StatusCode.ToString();
+                        return View(res.Result);
+                        
                     }
                 }
             }
+            return View();
+
         }
-        
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
