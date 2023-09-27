@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +10,7 @@ using UrlShortener.API.Models;
 
 namespace UrlShortener.API.Services
 {
-    public class AuthService :  ControllerBase
+    public class AuthService :  ApiControllerAttribute
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IConfiguration _configuration;
@@ -63,10 +64,10 @@ namespace UrlShortener.API.Services
             return tokenHandler.WriteToken(token);
         }
 
-        public async Task<IActionResult> Logout()
+        public async Task Logout()
         {
             await _signInManager.SignOutAsync();
-            return Ok();
+            //return Results.Ok();
                 
         }
     }

@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace UrlShortener.API.Seed
 {
     public class DbInitializer
     {
-        public DbInitializer() { }
+        
+        public DbInitializer( ) { }
 
         public static async Task Initializer(ApiUserDbContext context, UserManager<IdentityUser> userManager, IPasswordHasher<IdentityUser> passwordHasher)
         {

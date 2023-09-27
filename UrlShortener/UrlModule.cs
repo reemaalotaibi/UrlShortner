@@ -3,6 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using UrlShortener.Model;
 using UrlShortener.Services;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
+using UrlShortener.API.Models;
+using System.IdentityModel.Tokens.Jwt;
+using UrlShortener.API.Services;
 
 namespace UrlShortener
 {
@@ -46,6 +51,26 @@ namespace UrlShortener
 
             });
             #endregion
+
+            app.MapPost("api/login", async (Login model, UserManager<IdentityUser> _userManager, SignInManager<IdentityUser> _signInManager, ITokenService _toeknService) =>
+            {
+                var user = await _userManager.FindByNameAsync(model.UserName);
+                if (user == null)
+                    return ("Invalid login");
+                if (!await _userManager.CheckPasswordAsync(user, model.Password))
+                    return ("Invalid login");
+
+                var userRoles = await _userManager.GetRolesAsync(user);
+                var authClaims = new List<Claim>
+            {
+               new Claim(ClaimTypes.Name, user.UserName),
+               new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            };
+
+
+                string token = _toeknService.GenerateToken(authClaims);
+                return (token);
+            });
         }
     }
 }
