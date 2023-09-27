@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -23,9 +24,9 @@ namespace UrlShortener.Web.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult GetShortUrl(InputUrl inputUrl)
+        public async Task<IActionResult> GetShortUrl(InputUrl inputUrl)
         {
-            var apiBaseUrl = _configuration.GetSection("BaseUrl").Value + "api/URlshortener";
+            var apiBaseUrl = _configuration.GetSection("ApiShortenUrl").Value;
 
             string url = "";
             
@@ -33,20 +34,19 @@ namespace UrlShortener.Web.Controllers
             {
                 using(var client = new HttpClient())
                 {
-                    var res = client.PostAsync(apiBaseUrl,
+                    var res =await client.PostAsync(apiBaseUrl,
                         new StringContent(JsonConvert.SerializeObject(
                             inputUrl), Encoding.UTF8, "application/json"));
 
                     try
                     {
-                        res.Result.EnsureSuccessStatusCode();
-                        return View(res.Result);
+                        var content = await res.Content.ReadAsStringAsync();
+                        return View(content);
                         
                     }
                     catch
                     {
-                        res.Result.StatusCode.ToString();
-                        return View(res.Result);
+                        return View(res);
                         
                     }
                 }
