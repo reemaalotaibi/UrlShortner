@@ -19,6 +19,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var connectionString = builder.Configuration.GetConnectionString("Default") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
@@ -30,28 +31,28 @@ builder.Services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStor
 
 
 // Adding Authentication  
-//builder.Services.AddAuthentication(options =>
-//{
-//    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-//    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-//    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-//})
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+})
 
-// Adding Jwt Bearer  
-            //.AddJwtBearer(options =>
-            //{
-            //    options.SaveToken = true;
-            //    options.RequireHttpsMetadata = false;
-            //    options.TokenValidationParameters = new TokenValidationParameters()
-            //    {
-            //        ValidateIssuer = true,
-            //        ValidateAudience = true,
-            //        ValidAudience = builder.Configuration["JWTKey:ValidAudience"],
-            //        ValidIssuer = builder.Configuration["JWTKey:ValidIssuer"],
-            //        ClockSkew = TimeSpan.Zero,
-            //        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JWTKey:Secret"]))
-            //    };
-            //});
+ //Adding Jwt Bearer  
+            .AddJwtBearer(options =>
+            {
+                options.SaveToken = true;
+options.RequireHttpsMetadata = false;
+options.TokenValidationParameters = new TokenValidationParameters()
+{
+    ValidateIssuer = true,
+    ValidateAudience = true,
+    ValidAudience = builder.Configuration["JWTKey:ValidAudience"],
+    ValidIssuer = builder.Configuration["JWTKey:ValidIssuer"],
+    ClockSkew = TimeSpan.Zero,
+    IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JWTKey:Secret"]))
+};
+            });
 
 builder.Services.AddScoped<UserManager<IdentityUser>>();
 builder.Services.AddScoped<IdentityUser>();

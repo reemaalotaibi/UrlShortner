@@ -13,12 +13,12 @@ namespace UrlShortener.API.Seed
                 var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
                 var passwordHasher = serviceProvider.GetRequiredService<IPasswordHasher<IdentityUser>>();
 
-                await Initializer(context, userManager, passwordHasher);
+                await CreateUser(context, userManager, passwordHasher);
 
             }
         }
 
-        public async Task Initializer(ApiUserDbContext context, UserManager<IdentityUser> userManager, IPasswordHasher<IdentityUser> passwordHasher)
+        public async Task CreateUser(ApiUserDbContext context, UserManager<IdentityUser> userManager, IPasswordHasher<IdentityUser> passwordHasher)
         {
             context.Database.EnsureCreated();
 
