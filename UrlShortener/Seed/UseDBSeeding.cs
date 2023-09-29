@@ -41,7 +41,6 @@ namespace UrlShortener.API.Seed
                     
                 };
                 var result = await userManager.CreateAsync(newUser, apiPassword);
-                var x = result;
                 if (!result.Succeeded)
                 {
                     throw new Exception("Users seeding failed");
